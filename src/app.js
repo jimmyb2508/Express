@@ -12,6 +12,8 @@ const app = express();
 
 app.use(express.json());
 
+// Strings
+
 app.get('/strings/hello/:string', (req, res) => {
   res.json({ result: sayHello(req.params.string) });
 });
@@ -32,51 +34,60 @@ app.get('/strings/first-characters/:string?', (req, res) => {
   }
 });
 
-// app.get('/numbers/add/:a/and/:b', (req, res) => {
-//   const a = parseInt(req.params.a);
-//   const b = parseInt(req.params.b);
+// Numbers
 
-//   res.status(200).json({ result: add(a, b) });
-// });
+// Addition
 
 app.get('/numbers/add/:a/and/:b', (req, res) => {
   const a = parseInt(req.params.a, 10);
   const b = parseInt(req.params.b, 10);
 
   return Number.isNaN(a) || Number.isNaN(b)
-    ? res.sendStatus(400)
+    ? res.status(400).json({ error: 'Parameters must be valid numbers.' })
     : res.status(200).json({ result: add(a, b) });
 });
 
-// app.get('/numbers/subtract/:b/from/:a', (req, res) => {
-//   const a = parseInt(req.params.a);
-//   const b = parseInt(req.params.b);
-
-//   res.status(200).json({ result: subtract(a, b) });
-// });
+// Subtraction
 
 app.get('/numbers/subtract/:b/from/:a', (req, res) => {
   const a = parseInt(req.params.a, 10);
   const b = parseInt(req.params.b, 10);
 
   return Number.isNaN(a) || Number.isNaN(b)
-    ? res.sendStatus(400)
+    ? res.status(400).json({ error: 'Parameters must be valid numbers.' })
     : res.status(200).json({ result: subtract(a, b) });
 });
 
-app.post('/numbers/multiply', (req, res) => {
+// Multiply
+
+app.post(`/numbers/multiply`, (req, res) => {
+  const { a, b } = req.body;
+  if (!a || !b) {
+    return res.status(400).send({ error: 'Parameters "a" and "b" are required.' });
+  }
+  if (Number.isNaN(Number(a)) || Number.isNaN(Number(b))) {
+    return res.status(400).send({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  }
   res.status(200).json({ result: multiply(req.body.a, req.body.b) });
 });
 
+// Divide
+
 app.post('/numbers/divide', (req, res) => {
+  const { a, b } = req.body;
+  if (a === 0) {
+    return res.status(200).send({ result: 0 });
+  }
+  if(b === 0) {
+    return res.status(400).send({ error: 'Unable to divide by 0.' });
+  }
+  if (!a || !b) {
+    return res.status(400).send({ error: 'Parameters "a" and "b" are required.' });
+  }
+  if (Number.isNaN(Number(a)) || Number.isNaN(Number(b))) {
+    return res.status(400).send({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  }
   res.status(200).json({ result: divide(req.body.a, req.body.b) });
-});
-
-app.get('/numbers/add/:a/and/:b', (req, res) => {
-  const a = parseInt(req.params.a);
-  const b = parseInt(req.params.b);
-
-  res.status(200).json({ result: add(a, b) });
 });
 
 module.exports = app;

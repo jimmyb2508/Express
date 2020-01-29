@@ -38,7 +38,7 @@ describe('/numbers', () => {
         .get('/numbers/add/fish/and/chips')
         .then(res => {
           expect(res.status).toEqual(400);
-          // expect(res.body).toEqual({ error: 'Parameters must be valid numbers.' });
+          expect(res.body).toEqual({ error: 'Parameters must be valid numbers.' });
           done();
         });
     });
@@ -70,7 +70,7 @@ describe('/numbers', () => {
         .get('/numbers/subtract/fish/from/chips')
         .then(res => {
           expect(res.status).toEqual(400);
-          // expect(res.body).toEqual({ error: 'Parameters must be valid numbers.' });
+          expect(res.body).toEqual({ error: 'Parameters must be valid numbers.' });
           done();
         });
     });
@@ -99,7 +99,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if a parameter is missing', done => {
+    it('errors if a parameter is missing', done => {
       request(app)
         .post('/numbers/multiply')
         .send({ a: 'fish' })
@@ -110,7 +110,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if the parameters are not numbers', done => {
+    it('errors if the parameters are not numbers', done => {
       request(app)
         .post('/numbers/multiply')
         .send({ a: 'fish', b: 'chips' })
@@ -156,7 +156,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if dividing by 0', done => {
+    it('errors if dividing by 0', done => {
       request(app)
         .post('/numbers/divide')
         .send({ a: 10, b: 0 })
@@ -167,7 +167,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if a parameter is missing', done => {
+    it('errors if a parameter is missing', done => {
       request(app)
         .post('/numbers/divide')
         .send({ a: 'fish' })
@@ -178,7 +178,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if the parameters are not numbers', done => {
+    it('errors if the parameters are not numbers', done => {
       request(app)
         .post('/numbers/divide')
         .send({ a: 'fish', b: 'chips' })

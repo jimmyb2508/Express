@@ -15,7 +15,7 @@ const none = (a, b) => {
 };
 
 const one = (a, b) => {
-  return a!==b;
+  return a !== b;
 };
 
 const truthiness = a => {
@@ -23,11 +23,11 @@ const truthiness = a => {
 };
 
 const isEqual = (a, b) => {
-  return a==b;
+  return a == b;
 };
 
 const isGreaterThan = (a, b) => {
-    return a > b;
+  return a > b;
 };
 
 const isLessThanOrEqualTo = (a, b) => {
@@ -35,45 +35,49 @@ const isLessThanOrEqualTo = (a, b) => {
 };
 
 const isOdd = a => {
-  if (a % 2 === 1)
-  {return true;}
-  else {return false;}
+  if (a % 2 === 1) {
+    return true;
+  }
+  return false;
 };
 
 const isEven = a => {
-  if (a % 2 === 0)
-  {return true;}
-  else {return false;}
+  if (a % 2 === 0) {
+    return true;
+  }
+  return false;
 };
 
 const isSquare = a => {
-  if (Number.isInteger(Math.sqrt(a)))
-  {return true;}
-  else {return false;}
+  if (Number.isInteger(Math.sqrt(a))) {
+    return true;
+  }
+  return false;
 };
 
 const startsWith = (char, string) => {
-  if (string.startsWith(char))
-  {return true;}
-  else {return false;}
+  if (string.startsWith(char)) {
+    return true;
+  }
+  return false;
 };
 
 const containsVowels = string => {
-    return Boolean(string.match(/[aeiou]/gi));
-  
-  /*const vowels = ["a", "e", "i", "o", "u"];
+  return Boolean(string.match(/[aeiou]/gi));
+
+  /* const vowels = ["a", "e", "i", "o", "u"];
     let foundVowels = 0
     vowels.forEach(vowel => {
       if (string.toLowerCase.includes(vowel)) {
     foundVowels += 1;
     }
     });
-    return !!foundVowels*/
+    return !!foundVowels */
 };
 
 const isLowerCase = string => {
   return Boolean(!string.match(/[A-Z]/g));
-  
+
   /* if (string == string.lowerCase())
   {return true;}
   else {return false;} */
@@ -94,5 +98,5 @@ module.exports = {
   isSquare,
   startsWith,
   containsVowels,
-  isLowerCase
+  isLowerCase,
 };

@@ -1,4 +1,5 @@
 const express = require('express');
+const stringsRouter = require('./routes/strings');
 
 const {
   sayHello,
@@ -23,6 +24,8 @@ const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 const app = express();
 
 app.use(express.json());
+
+app.use('strings', stringsRouter);
 
 // Strings
 
@@ -107,6 +110,10 @@ app.post('/numbers/divide', (req, res) => {
 app.post('/numbers/remainder', (req, res) => {
   const { a, b } = req.body;
 
+  if (a === 0) {
+    return res.status(200).send({ result: 0 });
+  }
+
   if (b === 0) {
     return res.status(400).send({ error: 'Unable to divide by 0.' });
   }
@@ -118,13 +125,8 @@ app.post('/numbers/remainder', (req, res) => {
   if (Number.isNaN(Number(a)) || Number.isNaN(Number(b))) {
     return res.status(400).send({ error: 'Parameters must be valid numbers.' });
   }
-  console.log({ a, b });
-  // if (a === 0) {
-  //   return res.status(200).send({ result: 0 });
-  // }
-  console.log(remainder(a, b));
-  res.status(200).send({ result: remainder(a, b) });
 
+  res.status(200).send({ result: remainder(a, b) });
 });
 
 // Arrays
@@ -164,8 +166,6 @@ app.post('/booleans/negate', (req, res) => {
 app.post('/booleans/truthiness', (req, res) => {
   res.status(200).json({ result: truthiness(req.body.value) });
 });
-
-
 
 app.get('/booleans/is-odd/:number', (req, res) => {
   const realNumber = Number(req.params.number);
